@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dao.UserMapper">
+
+    <resultMap id="resultMap" type="User">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="username" property="username" jdbcType="VARCHAR" />
+        <result column="password" property="password" jdbcType="VARCHAR" />
+        <result column="create_time" property="create_time" jdbcType="VARCHAR" />
+        <result column="update_time" property="update_time" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="id">
+        insert into user(
+            username,
+            password,
+            create_time,
+            update_time
+        ) values (
+            #{username, jdbcType=VARCHAR},
+            #{password, jdbcType=VARCHAR},
+            #{create_time, jdbcType=VARCHAR},
+            #{update_time, jdbcType=TIMESTAMP}
+        )
+    </insert>
+    <update id="updateUser">
+        update user set
+        username = #{username, jdbcType=VARCHAR},
+        password = #{password, jdbcType=VARCHAR},
+        create_time = #{create_time, jdbcType=VARCHAR},
+        update_time = #{update_time, jdbcType=TIMESTAMP}
+        where id = #{id, jdbcType=INTEGER}
+    </update>
+
+    <!-- 删除数据 -->
+    <delete id="deleteUser">
+        delete from user where id = #{id, jdbcType=INTEGER}
+    </delete>
+
+    <!-- 查询数据 -->
+    <select id="getAllUsers" resultMap="resultMap">
+        select username, password, create_time, update_time from user
+    </select>
+</mapper>
