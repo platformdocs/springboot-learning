@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.utils.ElasticSearchUtils;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 import com.alibaba.fastjson.*;
@@ -22,6 +23,9 @@ public class TestController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ElasticSearchUtils elasticSearchUtils;
     
     @GetMapping("/test")
     public String test() {
@@ -38,6 +42,11 @@ public class TestController {
             sb.append(user.getUsername() + "," + user.getPassword() + "<br/>");
         }
         return sb.toString();
+    }
+
+    @GetMapping("/check")
+    public String check() throws Exception {
+        return String.valueOf(elasticSearchUtils.isIndexExist("ahtoh"));
     }
     
 }
